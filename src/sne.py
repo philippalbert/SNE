@@ -1,12 +1,30 @@
+"""Naive implementation of the Stochastic Neighbor Embedding algorithm using torch."""
+
 import torch
 import plotly.express as px
 
 
 class SNE:
+    """
+    A class implementing Stochastic Neighbor Embedding (SNE) for dimensionality reduction.
+    """
+
     @staticmethod
     def _conditional_probability_p_j_i(
         x: torch.tensor, i: int, j: int, sigma: float = 2
     ):
+        """Compute the conditional probability P(j|i) in the high-dimensional space.
+
+        Args:
+            x (torch.tensor): High-dimensional data matrix of shape (dim, n_obs).
+            i (int): Index of the reference point.
+            j (int): Index of the target point.
+            sigma (float): Bandwidth parameter for the Gaussian kernel. Default is 2.
+
+        Returns:
+            torch.tensor: The conditional probability P(j|i).
+        """
+
         neg_norm = -torch.linalg.norm(x[:, i] - x[:, j], ord=None)
         numerator = torch.exp(neg_norm / 2 / (sigma**2))
         denominator_vec = torch.zeros((x.shape[1]))
@@ -22,6 +40,18 @@ class SNE:
     def _conditional_probability_q_j_i(
         y: torch.tensor, i: int, j: int, sigma: float = 2
     ):
+        """Compute the conditional probability Q(j|i) in the low-dimensional space.
+
+        Args:
+            y (torch.tensor): Low-dimensional data matrix of shape (dim, n_obs).
+            i (int): Index of the reference point.
+            j (int): Index of the target point.
+            sigma (float): Bandwidth parameter for the Gaussian kernel. Default is 2.
+
+        Returns:
+            torch.tensor: The conditional probability Q(j|i).
+        """
+
         neg_norm = -torch.linalg.norm(y[:, i] - y[:, j], ord=None)
         numerator = torch.exp(neg_norm)
         denominator_vec = torch.zeros((y.shape[1]))
@@ -32,6 +62,15 @@ class SNE:
         return numerator / denominator_vec.sum()
 
     def _kullback_leibler(self, x):
+        """Optimize the Kullback-Leibler divergence between the high- and low-dimensional distributions.
+
+        Args:
+            x (torch.tensor): High-dimensional data matrix of shape (dim, n_obs).
+
+        Returns:
+            torch.tensor: Optimized low-dimensional representation of the data.
+        """
+
         x = torch.tensor(x, dtype=torch.float32, requires_grad=False)
         n_obs = x.shape[1]
         y = torch.randn(2, n_obs, requires_grad=True)
