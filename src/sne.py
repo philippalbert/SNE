@@ -2,12 +2,18 @@
 
 import torch
 import plotly.express as px
+from attrs import field, define
 
 
+@define
 class SNE:
     """
     A class implementing Stochastic Neighbor Embedding (SNE) for dimensionality reduction.
     """
+
+    n_components: int = field(default=2)
+    learning_rate: float = field(default=10.0)
+    iterations: int = field(default=100)
 
     @staticmethod
     def _conditional_probability_p_j_i(
@@ -61,7 +67,7 @@ class SNE:
 
         return numerator / denominator_vec.sum()
 
-    def _kullback_leibler(self, x):
+    def train(self, x):
         """Optimize the Kullback-Leibler divergence between the high- and low-dimensional distributions.
 
         Args:
@@ -74,9 +80,9 @@ class SNE:
         x = torch.tensor(x, dtype=torch.float32, requires_grad=False)
         n_obs = x.shape[1]
         y = torch.randn(2, n_obs, requires_grad=True)
-        optimizer = torch.optim.Adam([y], lr=0.01)
+        optimizer = torch.optim.Adam([y], lr=self.learning_rate)
 
-        for epoch in range(200):
+        for epoch in range(self.iterations):
             optimizer.zero_grad()
             loss = 0
             for i in range(n_obs):
