@@ -1,10 +1,17 @@
+"""Test script for sne implementation."""
+
 import torch
 import numpy as np
 
 from SNE import SNE
 
 
-def test_dummy():
+def test_train():
+    """Test training procedure.
+
+    Compare the resulting dimensions. Values of the 2 resulting dimensions
+    should be in the 2 defined groups - the unshifted and shifted.
+    """
     # Define number of observations (rows) and dimensions (columns).
     dim = 30
     n_obs = 10
