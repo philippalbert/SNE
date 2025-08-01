@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 
-from sne import SNE
+from SNE import SNE
 
 
 def test_dummy():
