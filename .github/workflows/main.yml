@@ -15,10 +15,10 @@ jobs:
 
       - name: Set up Python
         uses: actions/setup-python@v4
-
-      - name: Install dependencies
-        run: pip install pytest pytest-cov
-
+      
+      - name: Install package and dependencies
+        run: pip install -e ".[all]"
+      
       - name: Run tests
         run: pytest --cov --cov-branch --cov-report=xml
 
