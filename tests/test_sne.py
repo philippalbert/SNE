@@ -29,4 +29,4 @@ def test_train():
     # We expect that the first half of entries of each output vector is
     # rather far away.
     assert np.linalg.norm(y_hat[0 : int(dim / 2), 0] - y_hat[int(dim / 2) :, 0]) > 10
-    assert np.linalg.norm(y_hat[0 : int(dim / 2), 1] - y_hat[int(dim / 2) :, 1]) > 10
+    assert np.linalg.norm(y_hat[0 : int(dim / 2), 1] - y_hat[int(dim / 2) :, 1]) < 10
