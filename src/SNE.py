@@ -1,7 +1,6 @@
 """Naive implementation of the Stochastic Neighbor Embedding algorithm using torch."""
 
 import torch
-import plotly.express as px
 from attrs import field, define
 
 
@@ -9,7 +8,13 @@ from attrs import field, define
 class SNE:
     """
     A class implementing Stochastic Neighbor Embedding (SNE) for dimensionality reduction.
-    """
+
+    References
+    ----------
+    .. [1] Laurens van der Maaten, Geoffrey Hinton, 2008. "Visualizing Data using t-SNE".
+           DOI: Visualizing Data using t-SNE. Available at: chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf
+
+    """  # noqa: E501
 
     n_components: int = field(default=2)
     learning_rate: float = field(default=10.0)
@@ -95,4 +100,3 @@ class SNE:
             print(f"Epoch {epoch + 1}, Loss: {loss.item()}")
 
         return y.t().detach().numpy()
-
