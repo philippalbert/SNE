@@ -14,7 +14,7 @@ def test_train():
     """
     # Define number of observations (rows) and dimensions (columns).
     dim = 30
-    n_obs = 10
+    n_obs = 20
 
     # Create tensor that is randomly distributed and shift distribution of
     # subset of data points.
