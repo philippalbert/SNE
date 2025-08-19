@@ -1,5 +1,7 @@
 # SNE
 
+[![Run tests and upload coverage](https://github.com/philippalbert/SNE/actions/workflows/main.yml/badge.svg)](https://github.com/philippalbert/SNE/actions/workflows/main.yml)
+
 A naive implementation of the Stochastic Neighbor Embedding (SNE) algorithm using PyTorch for dimensionality reduction.
 
 ## Overview
