@@ -15,15 +15,6 @@ SNE is a dimensionality reduction technique that visualizes high-dimensional dat
 
 ## Installation
 
-### Requirements
-
-- Python 3.12
-- PyTorch
-- NumPy
-- Pandas
-- Plotly
-- attrs
-
 ### Install from Source
 
 1. Clone the repository:
